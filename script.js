@@ -12,7 +12,7 @@ function setup() {
   createCanvas(400, 400);
   colorMode(HSB, 360, 100, 100);
   backgroundColor = 95;
-  frameRate(12);
+  frameRate(10);
   playerSnake = new Snake();
   currentApple = new Apple();
   score = 0;
@@ -112,6 +112,7 @@ class Snake {
 
   extendTail() {
     let lastTailSegment = this.tail[this.tail.length-1]
+    this.tail.push(new TailSegment(lastTailSegment.x, lastTailSegment.y));
   }
 }
 
@@ -152,11 +153,23 @@ function keyPressed() {
     playerSnake.direction = "E";
   } else if (keyCode === LEFT_ARROW && playerSnake.direction != "E") {
     playerSnake.direction = "W";
-  } else {
+  } else if (keyCode == 32){
+    restartGame();
+  }
+  else {
     console.log("wrong key");
   }
 }
 
-function restartGame() {}
+function restartGame() {
+  score = 0;
+  playerSnake = new Snake();
+  currentApple = new Apple();
+  loop();
+}
 
-function gameOver() {}
+function gameOver() {
+  stroke(0);
+  text("GAME OVER, 50, 50");
+  noLoop();
+}
