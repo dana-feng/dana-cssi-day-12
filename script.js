@@ -5,14 +5,15 @@
           mouseX, mouseY, strokeWeight, line, mouseIsPressed, windowWidth, windowHeight, noStroke, 
           keyCode, UP_ARROW, collideRectRect, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, textSize, noLoop, loop */
 
-let backgroundColor, playerSnake, currentApple, score;
+let backgroundColor, playerSnake, currentApple, score, frame
 
 function setup() {
   // Canvas & color settings
   createCanvas(400, 400);
   colorMode(HSB, 360, 100, 100);
   backgroundColor = 95;
-  frameRate(10);
+  frame = 5;
+  frameRate(frame);
   playerSnake = new Snake();
   currentApple = new Apple();
   score = 0;
@@ -93,6 +94,7 @@ class Snake {
       score++;
       currentApple = new Apple();
       this.extendTail();
+      frame ++;
     }
   }
 
@@ -113,6 +115,9 @@ class Snake {
   extendTail() {
     let lastTailSegment = this.tail[this.tail.length-1]
     this.tail.push(new TailSegment(lastTailSegment.x, lastTailSegment.y));
+  }
+  checkWall(){
+    if this.y > 
   }
 }
 
