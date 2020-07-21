@@ -59,6 +59,8 @@ class Snake {
     } else {
       console.log("Error: invalid direction");
     }
+    this.tail.unshift(new TailSegment(this.x, this.y));
+    this.tail.pop();
   }
 
   showSelf() {
@@ -68,6 +70,7 @@ class Snake {
     noStroke();
     for (let i = 0; i < this.tail.length; i++){
       this.tail[i].showSelf();
+      
       
     }
   }
@@ -89,12 +92,15 @@ class Snake {
       //Make a new apple and increment score
       score++;
       currentApple = new Apple();
+      this.extendTail();
     }
   }
 
   checkCollisions() {}
 
-  extendTail() {}
+  extendTail() {
+    let lastTailSegment = this.tail[this.tail.length-1]
+  }
 }
 
 class TailSegment {
