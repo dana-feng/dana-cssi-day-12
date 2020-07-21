@@ -3,7 +3,7 @@
 /* global createCanvas, colorMode, HSB, width, height, random, background, fill, noFill, color, random,
           rect, ellipse, stroke, image, loadImage, frameRate, collideCircleCircle, collideRectCircle, text, 
           mouseX, mouseY, strokeWeight, line, mouseIsPressed, windowWidth, windowHeight, noStroke, 
-          keyCode, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, textSize, noLoop, loop */
+          keyCode, UP_ARROW, collideRectRect, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, textSize, noLoop, loop */
 
 let backgroundColor, playerSnake, currentApple, score;
 
@@ -31,7 +31,10 @@ function draw() {
   displayScore();
 }
 
-function displayScore() {}
+function displayScore() {
+  fill(0);
+  text(`Score: ${score}`, 20, 20);
+}
 
 class Snake {
   constructor() {
@@ -63,7 +66,25 @@ class Snake {
     noStroke();
   }
 
-  checkApples() {}
+  checkApples() {
+    //if the head of the snake collides with the apple...
+    if (
+      collideRectRect(
+        this.x,
+        this.y,
+        this.size,
+        this.size,
+        currentApple.x,
+        currentApple.y,
+        currentApple.size,
+        currentApple.size
+      )
+    ) {
+      //Make a new apple and increment score
+      score ++;
+      currentApple = new Apple();
+    }
+  }
 
   checkCollisions() {}
 
@@ -71,9 +92,18 @@ class Snake {
 }
 
 class Apple {
-  constructor() {}
+  constructor() {
+    this.size = 10;
+    this.x = random(10, width - 10);
+    this.y = random(10, height - 10);
+  }
 
-  showSelf() {}
+  showSelf() {
+    stroke(240, 100, 100);
+    noFill();
+    rect(this.x, this.y, this.size, this.size);
+    noStroke();
+  }
 }
 
 function keyPressed() {
