@@ -96,7 +96,19 @@ class Snake {
     }
   }
 
-  checkCollisions() {}
+  checkCollisions() {
+    //If there is only one tail segment, no need to check 
+    if (this.tail.length <= 2){
+      return;
+    }
+    else{
+      for(let i =1; i < this.tail.length; i++) {
+        if (this.x == this.tail[i].x && this.y == this.tail[i].y){
+          gameOver();
+        }
+      }
+    }
+  }
 
   extendTail() {
     let lastTailSegment = this.tail[this.tail.length-1]
