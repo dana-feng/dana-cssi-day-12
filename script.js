@@ -125,7 +125,9 @@ class Snake {
   }
   checkWall(){
     if (this.y > height || this.y <0 || this.x > width || this.x < 0){
+      if (life > 0){
       life --;
+      }
     }
   }
 }
@@ -186,6 +188,6 @@ function gameOver() {
   stroke(0);
   fill(0);
   
-  text("GAME OVER", 100, 50);
+  text("GAME OVER", 200, 100);
   noLoop();
 }
