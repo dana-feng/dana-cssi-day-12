@@ -5,7 +5,7 @@
           mouseX, mouseY, strokeWeight, line, mouseIsPressed, windowWidth, windowHeight, noStroke, 
           keyCode, UP_ARROW, collideRectRect, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, textSize, noLoop, loop */
 
-let backgroundColor, playerSnake, currentApple, score, frame, life 
+let backgroundColor, playerSnake, currentApple, score, frame, life;
 
 function setup() {
   // Canvas & color settings
@@ -13,7 +13,7 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   backgroundColor = 95;
   frame = 5;
-  
+
   playerSnake = new Snake();
   currentApple = new Apple();
   score = 0;
@@ -73,10 +73,8 @@ class Snake {
     noFill();
     rect(this.x, this.y, this.size, this.size);
     noStroke();
-    for (let i = 0; i < this.tail.length; i++){
+    for (let i = 0; i < this.tail.length; i++) {
       this.tail[i].showSelf();
-      
-      
     }
   }
 
@@ -98,21 +96,20 @@ class Snake {
       score++;
       currentApple = new Apple();
       this.extendTail();
-      frame ++;
+      frame++;
     }
   }
 
   checkCollisions() {
-    //If there is only one tail segment, no need to check 
-    if (life === 0){
+    //If there is only one tail segment, no need to check
+    if (life === 0) {
       gameOver();
     }
-    if (this.tail.length <= 2){
+    if (this.tail.length <= 2) {
       return;
-    }
-    else{
-      for(let i =1; i < this.tail.length; i++) {
-        if (this.x == this.tail[i].x && this.y == this.tail[i].y){
+    } else {
+      for (let i = 1; i < this.tail.length; i++) {
+        if (this.x == this.tail[i].x && this.y == this.tail[i].y) {
           gameOver();
         }
       }
@@ -120,13 +117,13 @@ class Snake {
   }
 
   extendTail() {
-    let lastTailSegment = this.tail[this.tail.length-1]
+    let lastTailSegment = this.tail[this.tail.length - 1];
     this.tail.push(new TailSegment(lastTailSegment.x, lastTailSegment.y));
   }
-  checkWall(){
-    if (this.y > height || this.y <0 || this.x > width || this.x < 0){
-      if (life > 0){
-      life --;
+  checkWall() {
+    if (this.y > height || this.y < 0 || this.x > width || this.x < 0) {
+      if (life > 0) {
+        life--;
       }
     }
   }
@@ -169,10 +166,9 @@ function keyPressed() {
     playerSnake.direction = "E";
   } else if (keyCode === LEFT_ARROW && playerSnake.direction != "E") {
     playerSnake.direction = "W";
-  } else if (keyCode == 32){
+  } else if (keyCode == 32) {
     restartGame();
-  }
-  else {
+  } else {
     console.log("wrong key");
   }
 }
@@ -187,7 +183,7 @@ function restartGame() {
 function gameOver() {
   stroke(0);
   fill(0);
-  
+
   text("GAME OVER", 200, 100);
   noLoop();
 }
