@@ -5,7 +5,7 @@
           mouseX, mouseY, strokeWeight, line, mouseIsPressed, windowWidth, windowHeight, noStroke, 
           keyCode, UP_ARROW, collideRectRect, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, textSize, noLoop, loop */
 
-let backgroundColor, playerSnake, currentApple, score, frame
+let backgroundColor, playerSnake, currentApple, score, frame, life 
 
 function setup() {
   // Canvas & color settings
@@ -13,19 +13,22 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   backgroundColor = 95;
   frame = 5;
-  frameRate(frame);
+  
   playerSnake = new Snake();
   currentApple = new Apple();
   score = 0;
+  life = 3;
 }
 
 function draw() {
   background(backgroundColor);
+  frameRate(frame);
   // The snake performs the following four methods:
   playerSnake.moveSelf();
   playerSnake.showSelf();
   playerSnake.checkCollisions();
   playerSnake.checkApples();
+  playerSnake.checkWall();
   // The apple needs fewer methods to show up on screen.
   currentApple.showSelf();
   // We put the score in its own function for readability.
@@ -35,6 +38,7 @@ function draw() {
 function displayScore() {
   fill(0);
   text(`Score: ${score}`, 20, 20);
+  text(`Lives Left: ${life}`, 20, 40);
 }
 
 class Snake {
@@ -100,6 +104,9 @@ class Snake {
 
   checkCollisions() {
     //If there is only one tail segment, no need to check 
+    if (life === 0){
+      gameOver();
+    }
     if (this.tail.length <= 2){
       return;
     }
@@ -117,7 +124,9 @@ class Snake {
     this.tail.push(new TailSegment(lastTailSegment.x, lastTailSegment.y));
   }
   checkWall(){
-    if this.y > 
+    if (this.y > height || this.y <0 || this.x > width || this.x < 0){
+      life --;
+    }
   }
 }
 
@@ -175,6 +184,8 @@ function restartGame() {
 
 function gameOver() {
   stroke(0);
-  text("GAME OVER, 50, 50");
+  fill(0);
+  
+  text("GAME OVER", 100, 50);
   noLoop();
 }
