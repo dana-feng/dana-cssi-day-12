@@ -150,7 +150,7 @@ class Apple {
 
   showSelf() {
     stroke(240, 100, 100);
-    noFill();
+    fill(100,100,100)
     rect(this.x, this.y, this.size, this.size);
     noStroke();
   }
