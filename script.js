@@ -43,6 +43,8 @@ class Snake {
     this.y = height - 10;
     this.direction = "N";
     this.speed = 12;
+    this.tail = [];
+    this.tail.unshift(new TailSegment(this.x, this.y));
   }
 
   moveSelf() {
@@ -64,6 +66,10 @@ class Snake {
     noFill();
     rect(this.x, this.y, this.size, this.size);
     noStroke();
+    for (let i = 0; i < this.tail.length; i++){
+      this.tail[i].showSelf();
+      
+    }
   }
 
   checkApples() {
@@ -81,7 +87,7 @@ class Snake {
       )
     ) {
       //Make a new apple and increment score
-      score ++;
+      score++;
       currentApple = new Apple();
     }
   }
@@ -89,6 +95,18 @@ class Snake {
   checkCollisions() {}
 
   extendTail() {}
+}
+
+class TailSegment {
+  constructor(x, y) {
+    this.size = 10;
+    this.x = x;
+    this.y = y;
+  }
+  showSelf() {
+    stroke(240, 100, 100);
+    rect(this.x, this.y, this.size, this.size);
+  }
 }
 
 class Apple {
